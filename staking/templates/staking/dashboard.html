@@ -1,0 +1,231 @@
+{% extends 'dash_base.html' %}
+
+{% block title %}Dashboard - CryptoStake{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Welcome Header -->
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Welcome back, {{ request.user.get_full_name|default:request.user.username }}</h1>
+        <p class="text-gray-500 dark:text-gray-400">Here's what's happening with your crypto today</p>
+    </div>
+    
+    <!-- Balance Carousel -->
+    <div class="mb-8 balance-carousel-container">
+        <div class="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary-500 to-purple-600 dark:from-dark-800 dark:to-dark-700 shadow-lg">
+            <div class="flex balance-carousel h-48 animate-scroll">
+                <!-- Total Balance Card -->
+                <div class="balance-card p-6 text-white flex flex-col justify-between">
+                    <div>
+                        <p class="text-sm opacity-80">Total Balance</p>
+                        <p class="text-3xl font-bold mt-1">${{ total_balance|floatformat:2 }}</p>
+                        <p class="text-xs opacity-80 mt-2">Across all wallets</p>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                        <span class="text-xs">Updated just now</span>
+                    </div>
+                </div>
+                
+                <!-- Individual Wallet Cards -->
+                {% for wallet_data in wallets_with_usd %}
+                <div class="balance-card p-6 text-white flex flex-col justify-between">
+                    <div>
+                        <p class="text-sm opacity-80">{{ wallet_data.wallet.get_asset_type_display }} Balance</p>
+                        <p class="text-3xl font-bold mt-1">{{ wallet_data.wallet.balance }} {{ wallet_data.wallet.asset_type }}</p>
+                        <p class="text-xs opacity-80 mt-2">≈ ${{ wallet_data.usd_value|floatformat:2 }}</p>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                        <span class="text-xs">Updated just now</span>
+                    </div>
+                </div>
+                {% endfor %}
+                
+                <!-- Staking Rewards Card -->
+                <div class="balance-card p-6 text-white flex flex-col justify-between">
+                    <div>
+                        <p class="text-sm opacity-80">Staking Rewards</p>
+                        <p class="text-3xl font-bold mt-1">${{ total_rewards|floatformat:2 }}</p>
+                        <p class="text-xs opacity-80 mt-2">Earned this month</p>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                        <span class="text-xs">Updated just now</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Carousel Indicators -->
+            <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+                {% for wallet_data in wallets_with_usd %}
+                <button class="w-2 h-2 rounded-full bg-white bg-opacity-30 focus:outline-none" aria-label="Go to slide {{ forloop.counter }}"></button>
+                {% endfor %}
+                <button class="w-2 h-2 rounded-full bg-white bg-opacity-30 focus:outline-none" aria-label="Go to staking rewards"></button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="grid grid-cols-3 gap-4 mb-8">
+        <a href="{% url 'deposit' %}" class="quick-action-btn bg-white dark:bg-dark-800 rounded-xl p-4 flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-all">
+            <div class="bg-primary-100 dark:bg-dark-700 rounded-full p-3 mb-3">
+                <svg class="h-6 w-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-900 dark:text-white">Deposit</span>
+        </a>
+        
+        <a href="{% url 'buy_crypto' %}" class="quick-action-btn bg-white dark:bg-dark-800 rounded-xl p-4 flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-all">
+            <div class="bg-primary-100 dark:bg-dark-700 rounded-full p-3 mb-3">
+                <svg class="h-6 w-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-900 dark:text-white">Buy Crypto</span>
+        </a>
+
+        <a href="{% url 'withdrawal' %}" class="quick-action-btn bg-white dark:bg-dark-800 rounded-xl p-4 flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-all">
+            <div class="bg-primary-100 dark:bg-dark-700 rounded-full p-3 mb-3">
+                <svg class="h-6 w-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-900 dark:text-white">Withdraw</span>
+        </a>
+        
+        <a href="{% url 'swap' %}" class="quick-action-btn bg-white dark:bg-dark-800 rounded-xl p-4 flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-all">
+            <div class="bg-primary-100 dark:bg-dark-700 rounded-full p-3 mb-3">
+                <svg class="h-6 w-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                </svg>
+            </div>
+            <span class="text-sm font-medium text-gray-900 dark:text-white">Swap</span>
+        </a>
+    </div>
+    
+    <!-- Recent Activity Section -->
+<div class="bg-white dark:bg-dark-800 rounded-xl shadow-sm overflow-hidden mb-8">
+    <div class="p-4 border-b border-gray-200 dark:border-dark-700">
+        <h2 class="text-lg font-medium text-gray-900 dark:text-white">Recent Activity</h2>
+    </div>
+    <div class="divide-y divide-gray-200 dark:divide-dark-700">
+        {% for transaction in recent_transactions|slice:":3" %}
+        <div class="p-4 flex items-center">
+            <div class="flex-shrink-0 rounded-full p-3 {% if transaction.transaction_type == 'deposit' %}bg-green-100 text-green-600{% else %}bg-blue-100 text-blue-600{% endif %}">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    {% if transaction.transaction_type == 'deposit' %}
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    {% else %}
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    {% endif %}
+                </svg>
+            </div>
+            <div class="ml-4 flex-1">
+                <div class="flex items-center justify-between">
+                    <p class="text-sm font-medium text-gray-900 dark:text-white">
+                        {{ transaction.get_transaction_type_display }} - {{ transaction.asset_type }}
+                    </p>
+                    <p class="text-sm font-medium {% if transaction.transaction_type == 'deposit' %}text-green-600{% else %}text-blue-600{% endif %}">
+                        {% if transaction.transaction_type == 'deposit' %}+{% else %}-{% endif %}{{ transaction.amount }} {{ transaction.asset_type }}
+                    </p>
+                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{{ transaction.timestamp|date:"M d, Y h:i A" }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <div class="p-8 text-center">
+            <svg class="h-12 w-12 text-gray-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">No recent activity yet</p>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="p-4 border-t border-gray-200 dark:border-dark-700 text-center">
+        <a href="{% url 'transactions' %}" class="text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300">View all activity</a>
+    </div>
+</div>
+    <!-- Staking Opportunities -->
+    <div class="bg-white dark:bg-dark-800 rounded-xl shadow-sm overflow-hidden">
+        <div class="p-4 border-b border-gray-200 dark:border-dark-700 flex justify-between items-center">
+            <h2 class="text-lg font-medium text-gray-900 dark:text-white">Staking Opportunities</h2>
+            <a href="{% url 'stake_form' %}" class="text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300">View all</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+            {% for plan in featured_plans %}
+            <div class="border border-gray-200 dark:border-dark-700 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-medium text-gray-900 dark:text-white">{{ plan.name }}</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ plan.duration_days }} days</p>
+                    </div>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                        {{ plan.roi_percentage }}% ROI
+                    </span>
+                </div>
+                <div class="mt-4">
+                    <div class="flex justify-between text-sm text-gray-500 dark:text-gray-400 mb-1">
+                        <span>Min: ${{ plan.minimum_amount }}</span>
+                        <span>Max: {% if plan.maximum_amount %}${{ plan.maximum_amount }}{% else %}Unlimited{% endif %}</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-dark-700 rounded-full h-2">
+                        <div class="bg-primary-600 h-2 rounded-full" style="width: {{ plan.percent_filled }}%"></div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <a href="{% url 'stake_form' %}?plan={{ plan.id }}" class="block w-full text-center bg-primary-600 hover:bg-primary-700 text-white py-2 rounded-lg text-sm font-medium transition-colors">Stake Now</a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-2 p-8 text-center">
+                <svg class="h-12 w-12 text-gray-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">No staking opportunities available at the moment</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script>
+    // Initialize the carousel animation
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile navigation active state
+        const currentPath = window.location.pathname.split('/')[1] || 'dashboard';
+        const navButtons = document.querySelectorAll('.mobile-nav-btn');
+        navButtons.forEach(button => {
+            if (button.getAttribute('href').includes(currentPath)) {
+                button.classList.add('active');
+                button.classList.remove('text-gray-500', 'dark:text-gray-400');
+                button.classList.add('text-primary-600', 'dark:text-primary-400');
+            }
+        });
+        
+        // Pause carousel animation when hovering
+        const carouselContainer = document.querySelector('.balance-carousel-container');
+        if (carouselContainer) {
+            carouselContainer.addEventListener('mouseenter', () => {
+                const carousel = carouselContainer.querySelector('.balance-carousel');
+                carousel.style.animationPlayState = 'paused';
+            });
+            
+            carouselContainer.addEventListener('mouseleave', () => {
+                const carousel = carouselContainer.querySelector('.balance-carousel');
+                carousel.style.animationPlayState = 'running';
+            });
+        }
+    });
+</script>
+{% endblock %}

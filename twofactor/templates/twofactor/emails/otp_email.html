@@ -1,0 +1,29 @@
+{% extends 'twofactor/emails/base_email.html' %}
+
+{% block email_title %}Your Verification Code{% endblock %}
+
+{% block header_title %}Security Verification{% endblock %}
+
+{% block content_title %}Your Verification Code{% endblock %}
+
+{% block content %}
+<p>Hello{% if user.first_name %} {{ user.first_name }}{% endif %},</p>
+
+<p>Your verification code for two-factor authentication is:</p>
+
+<div style="margin: 20px 0; padding: 15px; background-color: #f3f4f6; border-radius: 8px; text-align: center;">
+    <span style="font-size: 24px; font-weight: bold; letter-spacing: 5px; font-family: monospace;">{{ otp }}</span>
+</div>
+
+<p>This code will expire in {{ expiry_minutes }} minutes.</p>
+{% endblock %}
+
+{% block additional_info %}
+<div class="alert alert-info">
+    <p>If you didn't request this code, please ignore this email or contact support if you have concerns about your account security.</p>
+</div>
+{% endblock %}
+
+{% block closing %}
+<p>Thanks,<br>The Security Team</p>
+{% endblock %}

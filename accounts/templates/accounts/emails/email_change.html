@@ -1,0 +1,42 @@
+{% extends 'accounts/emails/base_email.html' %}
+
+{% block email_title %}Verify Your New Email Address{% endblock %}
+
+{% block header_title %}Email Change Verification{% endblock %}
+
+{% block content_title %}Verify Your New Email Address{% endblock %}
+
+{% block content %}
+<p>Hello{% if user.first_name %} {{ user.first_name }}{% endif %},</p>
+
+<p>You recently requested to change your email address. To complete this process and verify your new email address, please click the button below:</p>
+{% endblock %}
+
+{% block action_button %}
+<div class="text-center">
+    <a href="{{ site_url }}{% url 'accounts:verify_email_change' uidb64=uid token=token %}" class="btn">Verify New Email</a>
+</div>
+
+<div class="text-small text-center text-muted mt-4">
+    <p>Or copy and paste this link into your browser:</p>
+    <p>{{ site_url }}{% url 'accounts:verify_email_change' uidb64=uid token=token %}</p>
+</div>
+{% endblock %}
+
+{% block additional_info %}
+<div class="alert alert-info">
+    <p>This verification link will expire in 24 hours.</p>
+</div>
+
+<div class="divider"></div>
+
+<p class="text-small">
+    <strong>New Email Address:</strong> {{ user.email }}<br>
+    <strong>Change Requested:</strong> {% now "F j, Y, H:i" %}
+</p>
+{% endblock %}
+
+{% block closing %}
+<p>If you didn't request this email change, please contact us immediately or <a href="{{ site_url }}{% url 'accounts:password_reset' %}">reset your password</a> to secure your account.</p>
+<p>Thanks,<br>The Team</p>
+{% endblock %}

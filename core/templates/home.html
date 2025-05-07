@@ -1,0 +1,618 @@
+
+
+{% extends 'main_base.html' %}
+
+{% block title %}CryptoStake - Secure Crypto Staking Platform{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="bg-gradient-to-r from-primary-600 to-purple-600 dark:from-dark-800 dark:to-dark-900 text-white">
+    <div class="container mx-auto px-4 py-16 md:py-24">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0 animate-on-scroll">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Grow Your Crypto Assets <span class="gradient-text">With Confidence</span></h1>
+                <p class="text-xl mb-8 text-primary-100 dark:text-primary-300">Stake your cryptocurrencies and earn passive income with our secure and easy-to-use platform.</p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="{% url 'accounts:login' %}" class="bg-white text-primary-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold text-center transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        Sign In
+                    </a>
+                    <a href="#" class="bg-primary-500 hover:bg-primary-400 border border-primary-400 px-6 py-3 rounded-lg font-semibold text-center transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        Create Account
+                    </a>
+                </div>
+                <div class="mt-8 flex flex-wrap gap-4">
+                    <div class="flex items-center">
+                        <div class="flex -space-x-2">
+                            <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/12.jpg" alt="">
+                            <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+                            <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/45.jpg" alt="">
+                        </div>
+                        <span class="ml-3 text-primary-100 dark:text-primary-300">Join 15K+ investors</span>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center animate-on-scroll">
+                <div class="relative">
+                    <!-- Crypto Card Image -->
+                    <div class="bg-gradient-to-r from-primary-500 to-purple-600 rounded-xl p-6 text-white shadow-2xl transform rotate-3 scale-110 z-10 coin-animation">
+                        <div class="flex justify-between mb-6">
+                            <div>
+                                <p class="text-xs opacity-75">CryptoStake</p>
+                                <p class="text-sm font-semibold">VISA</p>
+                            </div>
+                            <div class="flex items-center justify-center w-10 h-10 bg-white bg-opacity-20 rounded-full">
+                                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="my-8">
+                            <p class="text-sm opacity-75 mb-1">Card Number</p>
+                            <p class="text-xl tracking-widest font-mono">•••• •••• •••• 4242</p>
+                        </div>
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-xs opacity-75">Card Holder</p>
+                                <p class="font-semibold">YOUR NAME</p>
+                            </div>
+                            <div>
+                                <p class="text-xs opacity-75">Expires</p>
+                                <p class="font-semibold">12/25</p>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <div class="w-8 h-8 bg-white rounded-sm flex items-center justify-center">
+                                    <div class="w-6 h-4 bg-primary-500 rounded-sm"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Dashboard Preview -->
+                    <div class="absolute -bottom-10 -left-10 bg-white dark:bg-dark-800 rounded-xl shadow-xl p-4 transform -rotate-3 w-64 z-20">
+                        <div class="flex items-center mb-2">
+                            <div class="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                            <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">Total Balance</p>
+                        </div>
+                        <p class="text-2xl font-bold text-primary-600 dark:text-primary-400 mb-2">$10,250.00</p>
+                        <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400">
+                            <span>BTC: 0.15</span>
+                            <span>ETH: 2.5</span>
+                            <span>USDT: 5,000</span>
+                        </div>
+                    </div>
+                    <!-- Floating coins -->
+                    <div class="absolute -top-10 -right-10 w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center shadow-lg z-0 coin-animation" style="animation-delay: 0.5s;">
+                        <span class="text-2xl">₿</span>
+                    </div>
+                    <div class="absolute top-20 -right-5 w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center shadow-lg z-0 coin-animation" style="animation-delay: 1s;">
+                        <span class="text-xl">Ξ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Section -->
+<div class="bg-white dark:bg-dark-900 py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center animate-on-scroll">
+            <div class="p-6 bg-gray-50 dark:bg-dark-800 rounded-xl hover:shadow-lg transition-shadow">
+                <p class="text-3xl md:text-4xl font-bold text-primary-600 dark:text-primary-400 mb-2">$50M+</p>
+                <p class="text-gray-600 dark:text-gray-400">Total Staked</p>
+                <div class="mt-4 h-1 w-full bg-gray-200 dark:bg-dark-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary-500 rounded-full progress-bar" style="width: 100%"></div>
+                </div>
+            </div>
+            <div class="p-6 bg-gray-50 dark:bg-dark-800 rounded-xl hover:shadow-lg transition-shadow">
+                <p class="text-3xl md:text-4xl font-bold text-primary-600 dark:text-primary-400 mb-2">15K+</p>
+                <p class="text-gray-600 dark:text-gray-400">Active Users</p>
+                <div class="mt-4 h-1 w-full bg-gray-200 dark:bg-dark-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-green-500 rounded-full progress-bar" style="width: 85%"></div>
+                </div>
+            </div>
+            <div class="p-6 bg-gray-50 dark:bg-dark-800 rounded-xl hover:shadow-lg transition-shadow">
+                <p class="text-3xl md:text-4xl font-bold text-primary-600 dark:text-primary-400 mb-2">25%</p>
+                <p class="text-gray-600 dark:text-gray-400">Max ROI</p>
+                <div class="mt-4 h-1 w-full bg-gray-200 dark:bg-dark-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-purple-500 rounded-full progress-bar" style="width: 75%"></div>
+                </div>
+            </div>
+            <div class="p-6 bg-gray-50 dark:bg-dark-800 rounded-xl hover:shadow-lg transition-shadow">
+                <p class="text-3xl md:text-4xl font-bold text-primary-600 dark:text-primary-400 mb-2">99.9%</p>
+                <p class="text-gray-600 dark:text-gray-400">Uptime</p>
+                <div class="mt-4 h-1 w-full bg-gray-200 dark:bg-dark-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-blue-500 rounded-full progress-bar" style="width: 99%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="py-16 bg-gray-50 dark:bg-dark-800">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12 animate-on-scroll">
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white">Why Choose <span class="gradient-text">CryptoStake?</span></h2>
+            <p class="text-gray-600 dark:text-gray-400 mt-2 max-w-2xl mx-auto">Our platform offers everything you need to grow your crypto assets with confidence and security</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="bg-white dark:bg-dark-700 p-6 rounded-lg shadow-md card-hover feature-card animate-on-scroll">
+                <div class="bg-primary-100 dark:bg-dark-600 rounded-full w-12 h-12 flex items-center justify-center mb-4 feature-icon">
+                    <svg class="h-6 w-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 dark:text-white">Secure Staking</h3>
+                <p class="text-gray-600 dark:text-gray-400">Your assets are protected with industry-leading security measures, multi-signature wallets, and regular audits by third-party security firms.</p>
+                <div class="mt-4">
+                    <a href="#" class="text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 font-medium flex items-center transition-colors">
+                        Learn more
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="bg-white dark:bg-dark-700 p-6 rounded-lg shadow-md card-hover feature-card animate-on-scroll" style="animation-delay: 0.1s;">
+                <div class="bg-primary-100 dark:bg-dark-600 rounded-full w-12 h-12 flex items-center justify-center mb-4 feature-icon">
+                    <svg class="h-6 w-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 dark:text-white">Competitive Returns</h3>
+                <p class="text-gray-600 dark:text-gray-400">Earn up to 25% ROI on your staked assets with our flexible staking plans and compounding interest options.</p>
+                <div class="mt-4">
+                    <a href="#" class="text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 font-medium flex items-center transition-colors">
+                        Learn more
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="bg-white dark:bg-dark-700 p-6 rounded-lg shadow-md card-hover feature-card animate-on-scroll" style="animation-delay: 0.2s;">
+                <div class="bg-primary-100 dark:bg-dark-600 rounded-full w-12 h-12 flex items-center justify-center mb-4 feature-icon">
+                    <svg class="h-6 w-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 dark:text-white">Crypto Card</h3>
+                <p class="text-gray-600 dark:text-gray-400">Spend your crypto assets anywhere with our exclusive CryptoStake card, featuring cashback rewards and low fees.</p>
+                <div class="mt-4">
+                    <a href="#" class="text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 font-medium flex items-center transition-colors">
+                        Learn more
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Staking Plans -->
+<div class="py-16 bg-white dark:bg-dark-900">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12 animate-on-scroll">
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white">Flexible <span class="gradient-text">Staking Plans</span></h2>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">Choose the plan that best fits your investment strategy</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <!-- Plan 1 -->
+            <div class="border border-gray-200 dark:border-dark-700 rounded-lg p-6 hover:shadow-lg transition-all duration-300 card-hover animate-on-scroll">
+                <h3 class="text-xl font-bold text-primary-600 dark:text-primary-400 mb-2">Starter Plan</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">Perfect for beginners</p>
+                <p class="text-4xl font-bold mb-6">5% <span class="text-gray-500 dark:text-gray-400 text-lg font-normal">ROI</span></p>
+                
+                <ul class="mb-8 space-y-3">
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-400">30-day lock period</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-400">$100 minimum stake</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-400">Daily rewards</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-400">24/7 support</span>
+                    </li>
+                </ul>
+                
+                <a href="{% url 'stake_form' %}" class="block w-full bg-primary-600 hover:bg-primary-700 text-white text-center py-3 rounded-lg font-medium transition-colors">
+                    Get Started
+                </a>
+            </div>
+            
+            <!-- Plan 2 (Featured) -->
+            <div class="border-2 border-primary-500 dark:border-primary-400 rounded-lg p-6 shadow-lg relative bg-gradient-to-b from-white to-gray-50 dark:from-dark-800 dark:to-dark-700 animate-on-scroll" style="animation-delay: 0.1s;">
+                <div class="absolute top-0 right-0 bg-primary-500 dark:bg-primary-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+                    POPULAR
+                </div>
+                <h3 class="text-xl font-bold text-primary-600 dark:text-primary-400 mb-2">Advanced Plan</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">Best for serious investors</p>
+                <p class="text-4xl font-bold mb-6">12% <span class="text-gray-500 dark:text-gray-400 text-lg font-normal">ROI</span></p>
+                
+                <ul class="mb-8 space-y-3">
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-400">90-day lock period</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-400">$1,000 minimum stake</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-400">Compounding rewards</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-400">Priority support</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-400">Bonus rewards</span>
+                    </li>
+                </ul>
+                
+                <a href="{% url 'stake_form' %}" class="block w-full bg-primary-600 hover:bg-primary-700 text-white text-center py-3 rounded-lg font-medium transition-colors">
+                    Get Started
+                </a>
+            </div>
+            
+            <!-- Plan 3 -->
+            <div class="border border-gray-200 dark:border-dark-700 rounded-lg p-6 hover:shadow-lg transition-all duration-300 card-hover animate-on-scroll" style="animation-delay: 0.2s;">
+                <h3 class="text-xl font-bold text-primary-600 dark:text-primary-400 mb-2">Pro Plan</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">For maximum returns</p>
+                <p class="text-4xl font-bold mb-6">25% <span class="text-gray-500 dark:text-gray-400 text-lg font-normal">ROI</span></p>
+                
+                <ul class="mb-8 space-y-3">
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-400">365-day lock period</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-400">$10,000 minimum stake</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-400">Compounding rewards</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-400">VIP support</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-400">Exclusive bonuses</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-400">Card cashback 5%</span>
+                    </li>
+                </ul>
+                
+                <a href="{% url 'stake_form' %}" class="block w-full bg-primary-600 hover:bg-primary-700 text-white text-center py-3 rounded-lg font-medium transition-colors">
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Testimonials Section -->
+<div class="py-16 bg-gray-50 dark:bg-dark-800">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12 animate-on-scroll">
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white">What Our <span class="gradient-text">Users Say</span></h2>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">Don't just take our word for it - hear from our community</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <!-- Testimonial 1 -->
+            <div class="bg-white dark:bg-dark-700 p-6 rounded-lg shadow-md card-hover animate-on-scroll">
+                <div class="flex items-center mb-4">
+                    <img class="w-12 h-12 rounded-full mr-4" src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah J.">
+                    <div>
+                        <h4 class="font-semibold dark:text-white">Sarah J.</h4>
+                        <div class="flex text-yellow-400 mt-1">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 italic">"I've been using CryptoStake for 6 months now and the returns have been incredible. The platform is so easy to use and their customer support is top-notch."</p>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="bg-white dark:bg-dark-700 p-6 rounded-lg shadow-md card-hover animate-on-scroll" style="animation-delay: 0.1s;">
+                <div class="flex items-center mb-4">
+                    <img class="w-12 h-12 rounded-full mr-4" src="https://randomuser.me/api/portraits/men/54.jpg" alt="Michael T.">
+                    <div>
+                        <h4 class="font-semibold dark:text-white">Michael T.</h4>
+                        <div class="flex text-yellow-400 mt-1">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 italic">"The Pro Plan has helped me grow my crypto portfolio significantly. The compounding rewards make a huge difference over time. Highly recommended!"</p>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="bg-white dark:bg-dark-700 p-6 rounded-lg shadow-md card-hover animate-on-scroll" style="animation-delay: 0.2s;">
+                <div class="flex items-center mb-4">
+                    <img class="w-12 h-12 rounded-full mr-4" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya K.">
+                    <div>
+                        <h4 class="font-semibold dark:text-white">Priya K.</h4>
+                        <div class="flex text-yellow-400 mt-1">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 italic">"I love the CryptoStake card! Being able to spend my crypto anywhere while earning cashback is a game-changer. The app makes everything so simple."</p>
+            </div>
+        </div>
+        
+        <div class="mt-12 text-center animate-on-scroll">
+            <a href="#" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 font-medium">
+                Read more testimonials
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- CTA Section -->
+<div class="py-16 bg-gradient-to-r from-primary-600 to-purple-600 dark:from-dark-800 dark:to-dark-900 text-white">
+    <div class="container mx-auto px-4 text-center animate-on-scroll">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Start Earning?</h2>
+        <p class="text-xl text-primary-100 dark:text-primary-300 mb-8 max-w-2xl mx-auto">Join thousands of investors growing their crypto assets with CryptoStake today.</p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="{% url 'accounts:login' %}" class="bg-white text-primary-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                Sign In
+            </a>
+            <a href="#" class="bg-transparent border-2 border-white hover:bg-white hover:bg-opacity-10 px-8 py-3 rounded-lg font-semibold transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                Create Account
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- FAQ Section -->
+<div class="py-16 bg-white dark:bg-dark-900">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12 animate-on-scroll">
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white">Frequently Asked <span class="gradient-text">Questions</span></h2>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">Find answers to common questions about our platform</p>
+        </div>
+        
+        <div class="max-w-3xl mx-auto space-y-4">
+            <!-- FAQ Item 1 -->
+            <div class="border border-gray-200 dark:border-dark-700 rounded-lg overflow-hidden animate-on-scroll">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-50 dark:bg-dark-800 hover:bg-gray-100 dark:hover:bg-dark-700 transition-colors">
+                    <span class="font-medium text-gray-800 dark:text-white">What is crypto staking?</span>
+                    <svg class="w-5 h-5 text-primary-600 dark:text-primary-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="p-4 bg-white dark:bg-dark-800 text-gray-600 dark:text-gray-400 hidden">
+                    <p>Crypto staking is the process of actively participating in transaction validation on a proof-of-stake (PoS) blockchain. By staking your coins, you help secure the network and in return earn rewards. It's similar to earning interest in a traditional savings account, but typically with much higher returns.</p>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 2 -->
+            <div class="border border-gray-200 dark:border-dark-700 rounded-lg overflow-hidden animate-on-scroll" style="animation-delay: 0.1s;">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-50 dark:bg-dark-800 hover:bg-gray-100 dark:hover:bg-dark-700 transition-colors">
+                    <span class="font-medium text-gray-800 dark:text-white">Is my crypto safe with CryptoStake?</span>
+                    <svg class="w-5 h-5 text-primary-600 dark:text-primary-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="p-4 bg-white dark:bg-dark-800 text-gray-600 dark:text-gray-400 hidden">
+                    <p>Yes, security is our top priority. We use industry-leading security measures including:</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                        <li>Multi-signature wallets</li>
+                        <li>Cold storage for the majority of funds</li>
+                        <li>Regular third-party security audits</li>
+                        <li>Two-factor authentication (2FA) for all accounts</li>
+                        <li>Insurance coverage for digital assets</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 3 -->
+            <div class="border border-gray-200 dark:border-dark-700 rounded-lg overflow-hidden animate-on-scroll" style="animation-delay: 0.2s;">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-50 dark:bg-dark-800 hover:bg-gray-100 dark:hover:bg-dark-700 transition-colors">
+                    <span class="font-medium text-gray-800 dark:text-white">How are the rewards calculated?</span>
+                    <svg class="w-5 h-5 text-primary-600 dark:text-primary-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="p-4 bg-white dark:bg-dark-800 text-gray-600 dark:text-gray-400 hidden">
+                    <p>Rewards are calculated based on several factors:</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                        <li>The staking plan you choose (Starter, Advanced, or Pro)</li>
+                        <li>The amount of crypto you stake</li>
+                        <li>The duration of your stake</li>
+                        <li>Whether you choose compounding or simple rewards</li>
+                    </ul>
+                    <p class="mt-2">Our platform automatically calculates and distributes rewards according to the terms of your staking plan. You can track your rewards in real-time through your dashboard.</p>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 4 -->
+            <div class="border border-gray-200 dark:border-dark-700 rounded-lg overflow-hidden animate-on-scroll" style="animation-delay: 0.3s;">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-50 dark:bg-dark-800 hover:bg-gray-100 dark:hover:bg-dark-700 transition-colors">
+                    <span class="font-medium text-gray-800 dark:text-white">Can I unstake my funds early?</span>
+                    <svg class="w-5 h-5 text-primary-600 dark:text-primary-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="p-4 bg-white dark:bg-dark-800 text-gray-600 dark:text-gray-400 hidden">
+                    <p>Each staking plan has a specific lock-up period during which your funds cannot be withdrawn. However, we do offer an early unstaking option with the following conditions:</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                        <li>A 10% penalty fee on the staked amount</li>
+                        <li>Forfeiture of all pending rewards</li>
+                        <li>Processing time of 3-5 business days</li>
+                    </ul>
+                    <p class="mt-2">We recommend carefully considering your investment timeline before staking to avoid early withdrawal penalties.</p>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 5 -->
+            <div class="border border-gray-200 dark:border-dark-700 rounded-lg overflow-hidden animate-on-scroll" style="animation-delay: 0.4s;">
+                <button class="w-full flex justify-between items-center p-4 text-left bg-gray-50 dark:bg-dark-800 hover:bg-gray-100 dark:hover:bg-dark-700 transition-colors">
+                    <span class="font-medium text-gray-800 dark:text-white">What cryptocurrencies can I stake?</span>
+                    <svg class="w-5 h-5 text-primary-600 dark:text-primary-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="p-4 bg-white dark:bg-dark-800 text-gray-600 dark:text-gray-400 hidden">
+                    <p>We currently support staking for the following cryptocurrencies:</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                        <div class="flex items-center">
+                            <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" class="w-8 h-8 mr-2" alt="Bitcoin">
+                            <span>Bitcoin (BTC)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" class="w-8 h-8 mr-2" alt="Ethereum">
+                            <span>Ethereum (ETH)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <img src="https://cryptologos.cc/logos/cardano-ada-logo.png" class="w-8 h-8 mr-2" alt="Cardano">
+                            <span>Cardano (ADA)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <img src="https://cryptologos.cc/logos/solana-sol-logo.png" class="w-8 h-8 mr-2" alt="Solana">
+                            <span>Solana (SOL)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <img src="https://cryptologos.cc/logos/polkadot-new-dot-logo.png" class="w-8 h-8 mr-2" alt="Polkadot">
+                            <span>Polkadot (DOT)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" class="w-8 h-8 mr-2" alt="Tether">
+                            <span>Tether (USDT)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <img src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png" class="w-8 h-8 mr-2" alt="USDC">
+                            <span>USD Coin (USDC)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.png" class="w-8 h-8 mr-2" alt="BNB">
+                            <span>BNB (BNB)</span>
+                        </div>
+                    </div>
+                    <p class="mt-4">We regularly add support for new cryptocurrencies based on community demand and technical feasibility.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-12 text-center animate-on-scroll">
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Still have questions?</p>
+            <a href="#" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 font-medium">
+                Contact our support team
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Final CTA -->
+<div class="bg-gray-100 dark:bg-dark-800 py-12">
+    <div class="container mx-auto px-4 text-center animate-on-scroll">
+        <div class="max-w-3xl mx-auto bg-white dark:bg-dark-700 rounded-xl shadow-lg p-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-4">Start Your Crypto Journey Today</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">Join thousands of investors earning passive income with CryptoStake. It only takes a few minutes to get started.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="{% url 'accounts:login' %}" class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    Sign In
+                </a>
+                <a href="#" class="bg-transparent border-2 border-primary-600 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-dark-600 px-8 py-3 rounded-lg font-semibold transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    Create Account
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // FAQ accordion functionality
+    document.querySelectorAll('.border button').forEach(button => {
+        button.addEventListener('click', () => {
+            const faqItem = button.parentElement;
+            const content = faqItem.querySelector('div');
+            const icon = button.querySelector('svg');
+            
+            // Toggle content visibility
+            content.classList.toggle('hidden');
+            
+            // Rotate icon
+            if (content.classList.contains('hidden')) {
+                icon.classList.remove('rotate-180');
+            } else {
+                icon.classList.add('rotate-180');
+            }
+        });
+    });
+</script>
+{% endblock %}

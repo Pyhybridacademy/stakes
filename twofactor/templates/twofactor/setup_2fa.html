@@ -1,0 +1,57 @@
+{% extends 'twofactor/base_2fa.html' %}
+
+{% block title %}Set Up Two-Factor Authentication{% endblock %}
+
+{% block 2fa_content %}
+<div class="mb-6">
+    <h1 class="text-2xl font-bold text-secondary-900 dark:text-white">Set Up Two-Factor Authentication</h1>
+    <p class="text-secondary-600 dark:text-gray-400">Choose your preferred authentication method</p>
+</div>
+
+<div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-secondary-200 dark:border-gray-700 p-6">
+    {% if messages %}
+    <div class="mb-4">
+        {% for message in messages %}
+        <div class="{% if message.tags == 'success' %}bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400{% elif message.tags == 'error' %}bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400{% else %}bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400{% endif %} p-3 rounded-lg mb-2">
+            <p>{{ message }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+        
+        <div>
+            <label class="block text-sm font-medium text-secondary-700 dark:text-gray-300 mb-2">Authentication Method</label>
+            
+            <div class="space-y-3">
+                <label class="flex items-start p-4 border border-secondary-200 dark:border-gray-700 rounded-lg cursor-pointer hover:bg-secondary-50 dark:hover:bg-gray-700">
+                    <input type="radio" name="method" value="totp" class="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-secondary-300 dark:border-gray-600 dark:bg-gray-700" checked>
+                    <div class="ml-3">
+                        <span class="block font-medium text-secondary-900 dark:text-white">Authenticator App</span>
+                        <span class="block text-sm text-secondary-500 dark:text-gray-400">Use an app like Google Authenticator, Authy, or Microsoft Authenticator to generate verification codes.</span>
+                    </div>
+                </label>
+                
+                <label class="flex items-start p-4 border border-secondary-200 dark:border-gray-700 rounded-lg cursor-pointer hover:bg-secondary-50 dark:hover:bg-gray-700">
+                    <input type="radio" name="method" value="email" class="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-secondary-300 dark:border-gray-600 dark:bg-gray-700">
+                    <div class="ml-3">
+                        <span class="block font-medium text-secondary-900 dark:text-white">Email OTP</span>
+                        <span class="block text-sm text-secondary-500 dark:text-gray-400">Receive a one-time verification code via email.</span>
+                    </div>
+                </label>
+            </div>
+        </div>
+        
+        <div class="flex justify-end space-x-3 pt-4">
+            <a href="{% url 'twofactor:security_settings' %}" class="px-4 py-2 border border-secondary-300 dark:border-gray-600 rounded-lg text-sm font-medium text-secondary-700 dark:text-gray-300 hover:bg-secondary-50 dark:hover:bg-gray-700">
+                Cancel
+            </a>
+            <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white font-medium rounded-lg text-sm shadow-sm">
+                Continue
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

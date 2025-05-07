@@ -1,0 +1,64 @@
+{% extends 'twofactor/base_2fa.html' %}
+
+{% block title %}Two-Factor Authentication{% endblock %}
+
+{% block 2fa_content %}
+<div class="mb-6">
+    <h1 class="text-2xl font-bold text-secondary-900 dark:text-white">Two-Factor Authentication</h1>
+    <p class="text-secondary-600 dark:text-gray-400">Verify your identity to continue</p>
+</div>
+
+<div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-secondary-200 dark:border-gray-700 p-6">
+    {% if messages %}
+    <div class="mb-4">
+        {% for message in messages %}
+        <div class="{% if message.tags == 'success' %}bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400{% elif message.tags == 'error' %}bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400{% else %}bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400{% endif %} p-3 rounded-lg mb-2">
+            <p>{{ message }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    {% if method == 'totp' %}
+    <div class="mb-4">
+        <h2 class="text-lg font-semibold text-secondary-900 dark:text-white mb-2">Authenticator App Verification</h2>
+        <p class="text-secondary-600 dark:text-gray-400">
+            Enter the 6-digit verification code from your authenticator app.
+        </p>
+    </div>
+    {% elif method == 'email' %}
+    <div class="mb-4">
+        <h2 class="text-lg font-semibold text-secondary-900 dark:text-white mb-2">Email Verification</h2>
+        <p class="text-secondary-600 dark:text-gray-400">
+            Enter the 6-digit verification code sent to your email address.
+        </p>
+    </div>
+    {% endif %}
+    
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        
+        <div>
+            <label for="{{ form.code.id_for_label }}" class="block text-sm font-medium text-secondary-700 dark:text-gray-300 mb-1">Verification Code</label>
+            {{ form.code }}
+            {% if form.code.errors %}
+            <p class="text-red-500 text-xs mt-1">{{ form.code.errors.0 }}</p>
+            {% endif %}
+        </div>
+        
+        <div class="flex justify-between items-center pt-4">
+            {% if method == 'email' %}
+            <a href="{% url 'twofactor:request_verification_otp' %}" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                Didn't receive the code? Send again
+            </a>
+            {% else %}
+            <div></div>
+            {% endif %}
+            
+            <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white font-medium rounded-lg text-sm shadow-sm">
+                Verify
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

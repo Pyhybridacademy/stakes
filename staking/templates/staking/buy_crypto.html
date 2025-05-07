@@ -1,0 +1,348 @@
+{% extends 'dash_base.html' %}
+
+{% block title %}Buy Crypto - CryptoStake{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Page Header -->
+    <div class="bg-gradient-to-r from-primary-600 to-purple-600 rounded-xl p-6 mb-8 text-white shadow-lg">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold mb-2">Buy Cryptocurrency</h1>
+                <p class="text-primary-100">Purchase crypto from our trusted exchange partners</p>
+            </div>
+            <div class="mt-4 md:mt-0">
+                <a href="{% url 'dashboard' %}" class="flex items-center bg-white text-primary-600 hover:bg-gray-100 px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-md">
+                    <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Introduction -->
+    <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8">
+        <div class="p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                <svg class="h-6 w-6 mr-2 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                How to Buy Cryptocurrency
+            </h2>
+            
+            <p class="text-gray-600 mb-4">
+                To start investing in cryptocurrency, you'll need to purchase coins through a reputable exchange. We've partnered with several trusted platforms to make this process easy and secure for our users.
+            </p>
+            
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-blue-700">
+                            <strong>Note:</strong> After purchasing cryptocurrency on any of these platforms, you can transfer it to your CryptoStake wallet to start staking and earning rewards.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exchange Partners Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Coinbase -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Coinbase.svg/1024px-Coinbase.svg.png" alt="Coinbase Logo" class="h-10">
+                    <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Beginner Friendly</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Coinbase</h3>
+                <p class="text-gray-600 mb-4">One of the most popular and user-friendly cryptocurrency exchanges, perfect for beginners. Offers a wide range of cryptocurrencies and educational resources.</p>
+                <div class="space-y-2">
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Easy to use interface
+                    </div>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Bank transfers & credit cards
+                    </div>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Earn while learning about crypto
+                    </div>
+                </div>
+                <a href="https://www.coinbase.com" target="_blank" rel="noopener noreferrer" class="mt-6 block w-full bg-primary-500 hover:bg-primary-600 text-white text-center py-2 rounded-lg font-medium transition-colors duration-200">
+                    Visit Coinbase
+                </a>
+            </div>
+        </div>
+
+        <!-- Binance -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Binance_logo.svg" alt="Binance Logo" class="h-10">
+                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Low Fees</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Binance</h3>
+                <p class="text-gray-600 mb-4">The world's largest cryptocurrency exchange by trading volume. Offers a comprehensive platform with advanced trading features and low fees.</p>
+                <div class="space-y-2">
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Extensive selection of cryptocurrencies
+                    </div>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Advanced trading tools
+                    </div>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Competitive trading fees
+                    </div>
+                </div>
+                <a href="https://www.binance.com" target="_blank" rel="noopener noreferrer" class="mt-6 block w-full bg-primary-500 hover:bg-primary-600 text-white text-center py-2 rounded-lg font-medium transition-colors duration-200">
+                    Visit Binance
+                </a>
+            </div>
+        </div>
+
+        <!-- Kraken -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <img src="https://www.investopedia.com/thmb/SJDLkTsSgCii5p1O86tBTCEpZXw=/fit-in/1500x750/filters:format(png):fill(white):max_bytes(150000):strip_icc()/Kraken-148ac3fcdb3e416088a575d8e4a6bedc.jpg" alt="Kraken Logo" class="h-10">
+                    <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">High Security</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Kraken</h3>
+                <p class="text-gray-600 mb-4">A highly secure exchange known for its strong focus on security and regulatory compliance. Offers a good balance of features for both beginners and advanced traders.</p>
+                <div class="space-y-2">
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Strong security measures
+                    </div>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Margin trading available
+                    </div>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        24/7 customer support
+                    </div>
+                </div>
+                <a href="https://www.kraken.com" target="_blank" rel="noopener noreferrer" class="mt-6 block w-full bg-primary-500 hover:bg-primary-600 text-white text-center py-2 rounded-lg font-medium transition-colors duration-200">
+                    Visit Kraken
+                </a>
+            </div>
+        </div>
+
+        <!-- Gemini -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-DeTY_eou3Q2NC8Mv7kkdN3OhNzPoqe97sg&s" alt="Gemini Logo" class="h-10">
+                    <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Regulated</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Gemini</h3>
+                <p class="text-gray-600 mb-4">A regulated cryptocurrency exchange founded by the Winklevoss twins. Known for its security, compliance, and user-friendly interface.</p>
+                <div class="space-y-2">
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Insured digital assets
+                    </div>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Earn interest on crypto
+                    </div>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Mobile app available
+                    </div>
+                </div>
+                <a href="https://www.gemini.com" target="_blank" rel="noopener noreferrer" class="mt-6 block w-full bg-primary-500 hover:bg-primary-600 text-white text-center py-2 rounded-lg font-medium transition-colors duration-200">
+                    Visit Gemini
+                </a>
+            </div>
+        </div>
+
+        <!-- Crypto.com -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <img src="https://www.investopedia.com/thmb/LaszQTH1zg_9VqqYf1Z1-WRkN6A=/fit-in/1500x750/filters:format(png):fill(white):max_bytes(150000):strip_icc()/Crypto.com-ecd8d24a98274dd2a07235aa53ddf124.jpg" alt="Crypto.com Logo" class="h-10">
+                    <span class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Visa Card</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Crypto.com</h3>
+                <p class="text-gray-600 mb-4">A complete cryptocurrency platform offering exchange services, a Visa card, and an app for buying, selling, and earning rewards on crypto.</p>
+                <div class="space-y-2">
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Crypto Visa cards with cashback
+                    </div>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Earn up to 14.5% on crypto deposits
+                    </div>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        NFT marketplace
+                    </div>
+                </div>
+                <a href="https://crypto.com" target="_blank" rel="noopener noreferrer" class="mt-6 block w-full bg-primary-500 hover:bg-primary-600 text-white text-center py-2 rounded-lg font-medium transition-colors duration-200">
+                    Visit Crypto.com
+                </a>
+            </div>
+        </div>
+
+        <!-- Robinhood -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-Zkk4RZiRcX9dpbNAiYbqgrB9fugluslQCg&s" alt="Robinhood Logo" class="h-10">
+                    <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Commission-Free</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Robinhood</h3>
+                <p class="text-gray-600 mb-4">A commission-free investment platform that offers cryptocurrency trading alongside stocks and ETFs. Great for those who want to manage all investments in one place.</p>
+                <div class="space-y-2">
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        No commission fees
+                    </div>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Stocks and crypto in one app
+                    </div>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <svg class="h-4 w-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        User-friendly interface
+                    </div>
+                </div>
+                <a href="https://robinhood.com" target="_blank" rel="noopener noreferrer" class="mt-6 block w-full bg-primary-500 hover:bg-primary-600 text-white text-center py-2 rounded-lg font-medium transition-colors duration-200">
+                    Visit Robinhood
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Information -->
+    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                <svg class="h-6 w-6 mr-2 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+                Tips for Buying Cryptocurrency Safely
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="flex items-start">
+                    <div class="bg-primary-100 rounded-full p-2 mr-3 mt-1">
+                        <span class="text-primary-600 font-bold">1</span>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-gray-800">Research Before Investing</h3>
+                        <p class="text-gray-600">Always research a cryptocurrency before investing. Understand its use case, technology, team, and market potential.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="bg-primary-100 rounded-full p-2 mr-3 mt-1">
+                        <span class="text-primary-600 font-bold">2</span>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-gray-800">Use Secure Exchanges</h3>
+                        <p class="text-gray-600">Only use reputable exchanges with strong security measures and a proven track record.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="bg-primary-100 rounded-full p-2 mr-3 mt-1">
+                        <span class="text-primary-600 font-bold">3</span>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-gray-800">Enable Two-Factor Authentication</h3>
+                        <p class="text-gray-600">Always enable 2FA on your exchange accounts to add an extra layer of security.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="bg-primary-100 rounded-full p-2 mr-3 mt-1">
+                        <span class="text-primary-600 font-bold">4</span>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-gray-800">Consider Dollar-Cost Averaging</h3>
+                        <p class="text-gray-600">Instead of investing all at once, consider buying smaller amounts regularly to reduce the impact of market volatility.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="bg-primary-100 rounded-full p-2 mr-3 mt-1">
+                        <span class="text-primary-600 font-bold">5</span>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-gray-800">Transfer to a Secure Wallet</h3>
+                        <p class="text-gray-600">For long-term holdings, consider transferring your cryptocurrency to a secure wallet like CryptoStake for staking and additional security.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-yellow-700">
+                            <strong>Important:</strong> Cryptocurrency investments involve risk. Never invest more than you can afford to lose, and consider consulting with a financial advisor before making significant investments.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

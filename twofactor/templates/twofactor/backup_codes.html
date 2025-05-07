@@ -1,0 +1,52 @@
+{% extends 'twofactor/base_2fa.html' %}
+
+{% block title %}Backup Codes{% endblock %}
+
+{% block 2fa_content %}
+<div class="mb-6">
+    <h1 class="text-2xl font-bold text-secondary-900 dark:text-white">Backup Codes</h1>
+    <p class="text-secondary-600 dark:text-gray-400">Save these codes in a secure place</p>
+</div>
+
+<div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-secondary-200 dark:border-gray-700 p-6">
+    {% if messages %}
+    <div class="mb-4">
+        {% for message in messages %}
+        <div class="{% if message.tags == 'success' %}bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400{% elif message.tags == 'error' %}bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400{% else %}bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400{% endif %} p-3 rounded-lg mb-2">
+            <p>{{ message }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <div class="mb-6">
+        <div class="p-4 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-400 rounded-lg">
+            <h3 class="font-medium mb-2">Important</h3>
+            <p class="text-sm">
+                These backup codes can be used to access your account if you lose access to your authenticator app or email. Each code can only be used once. Keep these codes in a safe place.
+            </p>
+        </div>
+    </div>
+    
+    <div class="mb-6">
+        <div class="grid grid-cols-2 gap-2">
+            {% for code in backup_codes %}
+            <div class="p-2 bg-secondary-100 dark:bg-gray-700 rounded font-mono text-center">{{ code }}</div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="flex justify-between items-center pt-4">
+        <form method="post" action="{% url 'twofactor:regenerate_backup_codes' %}">
+            {% csrf_token %}
+            <button type="submit" class="px-4 py-2 border border-secondary-300 dark:border-gray-600 rounded-lg text-sm font-medium text-secondary-700 dark:text-gray-300 hover:bg-secondary-50 dark:hover:bg-gray-700">
+                Generate New Codes
+            </button>
+        </form>
+        
+        <a href="{% url 'twofactor:security_settings' %}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white font-medium rounded-lg text-sm shadow-sm">
+            Done
+        </a>
+    </div>
+</div>
+{% endblock %}

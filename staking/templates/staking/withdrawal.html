@@ -1,0 +1,200 @@
+{% extends 'dash_base.html' %}
+
+{% block title %}Withdrawal - CryptoStake{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Page Header -->
+    <div class="bg-gradient-to-r from-primary-600 to-purple-600 rounded-xl p-6 mb-8 text-white shadow-lg">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold mb-2">Withdraw Funds</h1>
+                <p class="text-primary-100">Withdraw your crypto to an external wallet</p>
+            </div>
+            <div class="mt-4 md:mt-0">
+                <a href="{% url 'dashboard' %}" class="flex items-center bg-white text-primary-600 hover:bg-gray-100 px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-md">
+                    <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Withdrawal Form -->
+        <div class="lg:col-span-2 bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+                    <svg class="h-6 w-6 mr-2 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                    Withdrawal Information
+                </h2>
+
+                <form method="post" class="space-y-6">
+                    {% csrf_token %}
+                    
+                    {% if error %}
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                        <span class="block sm:inline">{{ error }}</span>
+                    </div>
+                    {% endif %}
+                    
+                    <div>
+                        <label for="wallet" class="block text-sm font-medium text-gray-700 mb-1">Select Asset</label>
+                        <select id="wallet" name="wallet" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            {% for wallet in wallets %}
+                            <option value="{{ wallet.id }}" data-balance="{{ wallet.balance }}">{{ wallet.get_asset_type_display }} ({{ wallet.asset_type }}) - Balance: {{ wallet.balance }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="amount" class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
+                        <div class="flex items-center">
+                            <input type="number" id="amount" name="amount" step="0.00000001" min="0.00000001" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <button type="button" id="max-amount" class="ml-2 bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded-md transition-colors duration-200">
+                                Max
+                            </button>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-1">Available: <span id="available-balance">0</span></p>
+                    </div>
+                    
+                    <div>
+                        <label for="destination_address" class="block text-sm font-medium text-gray-700 mb-1">Destination Address</label>
+                        <input type="text" id="destination_address" name="destination_address" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        <p class="text-sm text-gray-500 mt-1">Double-check this address. Funds sent to incorrect addresses cannot be recovered.</p>
+                    </div>
+                    
+                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-yellow-700">
+                                    <strong>Important:</strong> Withdrawal requests are processed manually and may take up to 24 hours to complete.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4">
+                        <button type="submit" class="w-full bg-primary-500 hover:bg-primary-600 text-white py-3 rounded-lg font-medium transition-colors duration-200">
+                            Submit Withdrawal Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <svg class="h-6 w-6 mr-2 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Withdrawal Instructions
+                </h2>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="bg-primary-100 rounded-full p-2 mr-3 mt-1">
+                            <span class="text-primary-600 font-bold">1</span>
+                        </div>
+                        <p class="text-gray-600">Select the cryptocurrency you want to withdraw.</p>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-primary-100 rounded-full p-2 mr-3 mt-1">
+                            <span class="text-primary-600 font-bold">2</span>
+                        </div>
+                        <p class="text-gray-600">Enter the amount you wish to withdraw (must be less than or equal to your available balance).</p>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-primary-100 rounded-full p-2 mr-3 mt-1">
+                            <span class="text-primary-600 font-bold">3</span>
+                        </div>
+                        <p class="text-gray-600">Enter the destination wallet address where you want to receive your funds.</p>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-primary-100 rounded-full p-2 mr-3 mt-1">
+                            <span class="text-primary-600 font-bold">4</span>
+                        </div>
+                        <p class="text-gray-600">Submit your withdrawal request. Our team will process your request within 24 hours.</p>
+                    </div>
+                </div>
+                
+                <div class="mt-6 bg-blue-50 border-l-4 border-blue-400 p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-blue-700">
+                                <strong>Note:</strong> Withdrawal fees may apply depending on the network congestion and the cryptocurrency being withdrawn.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 bg-red-50 border-l-4 border-red-400 p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-red-700">
+                                <strong>Warning:</strong> Always verify the destination address. Transactions cannot be reversed once processed.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_scripts %}
+<script>
+    // JavaScript to handle withdrawal form
+    document.addEventListener('DOMContentLoaded', function() {
+        const walletSelect = document.getElementById('wallet');
+        const amountInput = document.getElementById('amount');
+        const maxButton = document.getElementById('max-amount');
+        const availableBalanceSpan = document.getElementById('available-balance');
+        
+        // Function to update the available balance
+        function updateAvailableBalance() {
+            const selectedOption = walletSelect.options[walletSelect.selectedIndex];
+            const balance = selectedOption.getAttribute('data-balance');
+            availableBalanceSpan.textContent = balance;
+        }
+        
+        // Initial update
+        updateAvailableBalance();
+        
+        // Update when selection changes
+        walletSelect.addEventListener('change', updateAvailableBalance);
+        
+        // Set max amount
+        maxButton.addEventListener('click', function() {
+            const selectedOption = walletSelect.options[walletSelect.selectedIndex];
+            const balance = selectedOption.getAttribute('data-balance');
+            amountInput.value = balance;
+        });
+    });
+</script>
+{% endblock %}
+{% endblock %}

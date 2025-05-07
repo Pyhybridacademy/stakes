@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CryptoStake{% endblock %}</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Configure Tailwind with dark mode
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1'
+                        },
+                        dark: {
+                            700: '#374151',
+                            800: '#1f2937',
+                            900: '#111827'
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Check for dark mode preference on page load
+        if (localStorage.getItem('darkMode') === 'true' || 
+            (!localStorage.getItem('darkMode') && 
+             window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Gradient text for logo */
+        .gradient-text {
+            background: linear-gradient(90deg, #0ea5e9, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Common styles for all pages */
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        
+    /* Custom styles for the dashboard */
+    .sidebar-item {
+        position: relative;
+        transition: all 0.3s ease;
+    }
+    
+    .sidebar-item::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background-color: rgba(59, 130, 246, 0.1);
+        transition: width 0.3s ease;
+    }
+    
+    .sidebar-item:hover::after {
+        width: 4px;
+    }
+    
+    .sidebar-item.active::after {
+        width: 4px;
+        background-color: rgb(59, 130, 246);
+    }
+    
+    .balance-carousel {
+        scroll-snap-type: x mandatory;
+    }
+    
+    .balance-card {
+        scroll-snap-align: start;
+        flex: 0 0 100%;
+    }
+    
+    .quick-action-btn {
+        transition: all 0.3s ease;
+    }
+    
+    .quick-action-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .nav-indicator {
+        transition: all 0.3s ease;
+    }
+    
+    
+    
+    /* Animation for the balance carousel */
+    @keyframes scroll {
+        0%, 20% {
+            transform: translateX(0);
+        }
+        25%, 45% {
+            transform: translateX(-100%);
+        }
+        50%, 70% {
+            transform: translateX(-200%);
+        }
+        75%, 95% {
+            transform: translateX(-300%);
+        }
+        100% {
+            transform: translateX(-400%);
+        }
+    }
+    
+    .animate-scroll {
+        animation: scroll 25s infinite linear;
+    }
+    
+    /* Pause animation on hover */
+    .balance-carousel-container:hover .animate-scroll {
+        animation-play-state: paused;
+    }
+
+
+        {% block base_styles %}{% endblock %}
+    </style>
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="h-full bg-gray-50 dark:bg-dark-900 text-gray-900 dark:text-white">
+    <!-- Main Layout Structure -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- Desktop Sidebar - visible on lg screens and up -->
+        <div class="hidden lg:flex lg:flex-shrink-0">
+            <div class="flex flex-col w-64 border-r border-gray-200 dark:border-dark-700 bg-white dark:bg-dark-800">
+                <!-- Logo -->
+                <div class="flex items-center justify-center h-16 flex-shrink-0 px-4">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        <h1 class="text-xl font-bold gradient-text">CryptoStake</h1>
+                    </div>
+                </div>
+                
+                <!-- Sidebar Navigation -->
+                <div class="flex-1 flex flex-col overflow-y-auto">
+                    <nav class="flex-1 px-2 py-4 space-y-1">
+                        {% block sidebar_navigation %}
+                        <!-- Default sidebar items - override in child templates -->
+                        <a href="{% url 'dashboard' %}" class="sidebar-item flex items-center px-4 py-3 text-sm font-medium rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-dark-700">
+                            <svg class="mr-3 h-5 w-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                            </svg>
+                            Dashboard
+                        </a>
+                        
+                        <a href="{% url 'order_card' %}" class="sidebar-item flex items-center px-4 py-3 text-sm font-medium rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-dark-700">
+                            <svg class="mr-3 h-5 w-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                            </svg>
+                            Crypto Card
+                        </a>
+                        
+                        <a href="{% url 'connect_wallet' %}" class="sidebar-item flex items-center px-4 py-3 text-sm font-medium rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-dark-700">
+                            <svg class="mr-3 h-5 w-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            Connect Wallet
+                        </a>
+                        
+                        <a href="{% url 'transactions' %}" class="sidebar-item flex items-center px-4 py-3 text-sm font-medium rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-dark-700">
+                            <svg class="mr-3 h-5 w-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                            </svg>
+                            Transactions
+                        </a>
+                        
+                        <a href="{% url 'stake_form' %}" class="sidebar-item flex items-center px-4 py-3 text-sm font-medium rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-dark-700">
+                            <svg class="mr-3 h-5 w-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                            Stake Crypto
+                        </a>
+                        
+                        <a href="{% url 'swap' %}" class="sidebar-item flex items-center px-4 py-3 text-sm font-medium rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-dark-700">
+                            <svg class="mr-3 h-5 w-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                            </svg>
+                            Swap Crypto
+                        </a>
+                        {% endblock %}
+                    </nav>
+                </div>
+                
+                <!-- User Profile Section -->
+                <div class="p-4 border-t border-gray-200 dark:border-dark-700">
+                    <a href="{% url 'accounts:profile' %}" class="flex items-center space-x-3 group">
+                        <div class="flex-shrink-0">
+                            <img class="h-10 w-10 rounded-full" src="https://ui-avatars.com/api/?name={{ request.user.get_full_name|default:request.user.username }}&background=0ea5e9&color=fff" alt="{{ request.user.get_full_name|default:request.user.username }}">
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <p class="text-sm font-medium text-gray-900 dark:text-white truncate group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{{ request.user.get_full_name|default:request.user.username }}</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 truncate">View profile</p>
+                        </div>
+                        <svg class="h-5 w-5 text-gray-400 dark:text-gray-500 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Mobile Header -->
+            <div class="lg:hidden bg-white dark:bg-dark-800 shadow-sm">
+                <div class="flex items-center justify-between px-4 py-3">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        <h1 class="text-xl font-bold gradient-text">CryptoStake</h1>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button id="darkModeToggle" class="p-2 rounded-full bg-gray-100 dark:bg-dark-700">
+                            <i class="fas fa-moon dark:hidden"></i>
+                            <i class="fas fa-sun hidden dark:block"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="flex-1 overflow-auto">
+                {% block content %}
+                <!-- Page content goes here -->
+                {% endblock %}
+            </div>
+            
+            <!-- Mobile Bottom Navigation - visible on screens smaller than lg -->
+            <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-dark-800 border-t border-gray-200 dark:border-dark-700 shadow-lg">
+                <div class="flex justify-around">
+                    {% block mobile_navigation %}
+                    <!-- Default mobile navigation - override in child templates -->
+                    <a href="{% url 'dashboard' %}" class="mobile-nav-btn flex flex-col items-center justify-center py-3 px-4 text-xs font-medium {% if request.resolver_match.url_name == 'dashboard' %}active text-primary-600 dark:text-primary-400{% else %}text-gray-500 dark:text-gray-400{% endif %}">
+                        <svg class="h-6 w-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        Home
+                        <span class="nav-indicator h-1 rounded-t-full mt-1"></span>
+                    </a>
+                    
+                    <a href="{% url 'order_card' %}" class="mobile-nav-btn flex flex-col items-center justify-center py-3 px-4 text-xs font-medium {% if request.resolver_match.url_name == 'order_card' %}active text-primary-600 dark:text-primary-400{% else %}text-gray-500 dark:text-gray-400{% endif %}">
+                        <svg class="h-6 w-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                        </svg>
+                        Card
+                        <span class="nav-indicator h-1 rounded-t-full mt-1"></span>
+                    </a>
+                    
+                    <a href="{% url 'transactions' %}" class="mobile-nav-btn flex flex-col items-center justify-center py-3 px-4 text-xs font-medium {% if request.resolver_match.url_name == 'transactions' %}active text-primary-600 dark:text-primary-400{% else %}text-gray-500 dark:text-gray-400{% endif %}">
+                        <svg class="h-6 w-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                        </svg>
+                        Transactions
+                        <span class="nav-indicator h-1 rounded-t-full mt-1"></span>
+                    </a>
+                    
+                    <a href="{% url 'stake_form' %}" class="mobile-nav-btn flex flex-col items-center justify-center py-3 px-4 text-xs font-medium {% if request.resolver_match.url_name == 'stake_form' %}active text-primary-600 dark:text-primary-400{% else %}text-gray-500 dark:text-gray-400{% endif %}">
+                        <svg class="h-6 w-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                        Stake
+                        <span class="nav-indicator h-1 rounded-t-full mt-1"></span>
+                    </a>
+                    
+                    <a href="{% url 'connect_wallet' %}" class="mobile-nav-btn flex flex-col items-center justify-center py-3 px-4 text-xs font-medium {% if request.resolver_match.url_name == 'connect_wallet' %}active text-primary-600 dark:text-primary-400{% else %}text-gray-500 dark:text-gray-400{% endif %}">
+                        <svg class="h-6 w-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        Wallet
+                        <span class="nav-indicator h-1 rounded-t-full mt-1"></span>
+                    </a>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dark mode toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('click', () => {
+                    document.documentElement.classList.toggle('dark');
+                    localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+                });
+            }
+            
+            // Add styles for active sidebar item
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            const currentPath = window.location.pathname;
+            
+            sidebarItems.forEach(item => {
+                const href = item.getAttribute('href');
+                if (href && currentPath.includes(href.replace(/^\/|\/$/g, ''))) {
+                    item.classList.add('active', 'bg-gray-100', 'dark:bg-dark-700', 'text-gray-900', 'dark:text-white');
+                    item.classList.remove('text-gray-600', 'dark:text-gray-300');
+                    
+                    // Change the icon color
+                    const icon = item.querySelector('svg');
+                    if (icon) {
+                        icon.classList.remove('text-gray-400', 'dark:text-gray-500');
+                        icon.classList.add('text-primary-600');
+                    }
+                }
+            });
+            
+            // Add styles for active mobile nav button
+            const mobileNavButtons = document.querySelectorAll('.mobile-nav-btn');
+            
+            mobileNavButtons.forEach(button => {
+                const href = button.getAttribute('href');
+                if (href && currentPath.includes(href.replace(/^\/|\/$/g, ''))) {
+                    button.classList.add('active');
+                    button.classList.remove('text-gray-500', 'dark:text-gray-400');
+                    button.classList.add('text-primary-600', 'dark:text-primary-400');
+                    
+                    // Show the indicator
+                    const indicator = button.querySelector('.nav-indicator');
+                    if (indicator) {
+                        indicator.classList.add('w-24', 'bg-primary-600');
+                    }
+                }
+            });
+            
+            {% block base_scripts %}{% endblock %}
+        });
+    </script>
+    
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

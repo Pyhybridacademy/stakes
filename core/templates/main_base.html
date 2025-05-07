@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Crypto Staking Platform{% endblock %}</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        dark: {
+                            800: '#1e293b',
+                            900: '#0f172a'
+                        }
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 8s ease infinite',
+                        'gradient-y': 'gradient-y 8s ease infinite',
+                        'gradient-xy': 'gradient-xy 8s ease infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'left center'
+                            },
+                            '50%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'right center'
+                            }
+                        },
+                        'gradient-y': {
+                            '0%, 100%': {
+                                'background-size': '400% 400%',
+                                'background-position': 'center top'
+                            },
+                            '50%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'center bottom'
+                            }
+                        },
+                        'gradient-xy': {
+                            '0%, 100%': {
+                                'background-position': '0% 50%'
+                            },
+                            '50%': {
+                                'background-position': '100% 50%'
+                            }
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: gradient-x 8s ease infinite;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .feature-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .dark-mode-toggle {
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: rotate(30deg);
+        }
+        
+        .mobile-menu {
+            transition: all 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+        
+        .coin-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .pulse-animation {
+            animation: pulse-slow 4s infinite;
+        }
+        
+        .progress-bar {
+            transition: width 1.5s ease-in-out;
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gray-50 dark:bg-dark-900 min-h-screen flex flex-col transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="bg-primary-600 dark:bg-dark-800 text-white p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                <h1 class="text-xl font-bold gradient-text">CryptoStake</h1>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="{% url 'dashboard' %}" class="nav-link active">Dashboard</a>
+                <a href="{% url 'stake_form' %}" class="nav-link">Stake</a>
+                <a href="{% url 'order_card' %}" class="nav-link">Cards</a>
+                <a href="{% url 'accounts:profile' %}" class="nav-link">Profile</a>
+                <div class="relative group">
+                    <button class="flex items-center space-x-1 nav-link">
+                        <span>More</span>
+                        <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-dark-800 rounded-md shadow-lg py-1 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
+                        <a href="#" class="block px-4 py-2 text-gray-800 dark:text-white hover:bg-primary-100 dark:hover:bg-primary-700">FAQ</a>
+                        <a href="#" class="block px-4 py-2 text-gray-800 dark:text-white hover:bg-primary-100 dark:hover:bg-primary-700">Support</a>
+                        <a href="#" class="block px-4 py-2 text-gray-800 dark:text-white hover:bg-primary-100 dark:hover:bg-primary-700">API</a>
+                    </div>
+                </div>
+                <button id="darkModeToggle" class="dark-mode-toggle p-2 rounded-full bg-primary-700 dark:bg-dark-700">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                <a href="{% url 'accounts:logout' %}" class="bg-primary-700 hover:bg-primary-800 px-4 py-2 rounded-lg font-medium transition-colors">Logout</a>
+            </div>
+            
+            <!-- Mobile menu button -->
+            <div class="md:hidden flex items-center">
+                <button id="mobileMenuButton" class="p-2 rounded-md focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div id="mobileMenu" class="mobile-menu md:hidden bg-primary-700 dark:bg-dark-800 mt-2 rounded-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="{% url 'dashboard' %}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-primary-800 dark:hover:bg-dark-700">Dashboard</a>
+                <a href="{% url 'stake_form' %}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-primary-800 dark:hover:bg-dark-700">Stake</a>
+                <a href="{% url 'order_card' %}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-primary-800 dark:hover:bg-dark-700">Cards</a>
+                <a href="{% url 'accounts:profile' %}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-primary-800 dark:hover:bg-dark-700">Profile</a>
+                <div class="pt-4 border-t border-primary-800 dark:border-dark-700">
+                    <div class="flex justify-between items-center px-3 py-2">
+                        <span>Dark Mode</span>
+                        <button id="mobileDarkModeToggle" class="relative inline-flex items-center h-6 rounded-full w-11 bg-primary-800 dark:bg-dark-700">
+                            <span class="sr-only">Dark Mode</span>
+                            <span class="translate-x-0 dark:translate-x-5 inline-block w-4 h-4 transform transition rounded-full bg-white"></span>
+                        </button>
+                    </div>
+                </div>
+                <a href="{% url 'accounts:logout' %}" class="block w-full text-center bg-primary-800 dark:bg-dark-700 hover:bg-primary-900 dark:hover:bg-dark-600 px-3 py-2 rounded-md text-base font-medium mt-2">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="w-full mx-auto p-4 flex-grow">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 dark:bg-dark-800 text-white p-6 mt-8">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        <h3 class="text-xl font-bold gradient-text">CryptoStake</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">Secure crypto staking platform with industry-leading returns.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Platform</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Dashboard</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Staking</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Cards</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Statistics</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Resources</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">API</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Community</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Cookie Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-400">© {% now "Y" %} CryptoStake. All rights reserved.</p>
+                <div class="mt-4 md:mt-0 flex space-x-6">
+                    <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Status</a>
+                    <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Security</a>
+                    <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Careers</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const mobileDarkModeToggle = document.getElementById('mobileDarkModeToggle');
+        const html = document.documentElement;
+        
+        // Check for saved user preference or system preference
+        if (localStorage.getItem('darkMode') === 'true' || 
+            (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        }
+        
+        // Desktop toggle
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('darkMode', html.classList.contains('dark'));
+        });
+        
+        // Mobile toggle
+        mobileDarkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('darkMode', html.classList.contains('dark'));
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            mobileMenuButton.innerHTML = mobileMenu.classList.contains('open') ? 
+                '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>' :
+                '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>';
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Animate elements when they come into view
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('animate__animated', 'animate__fadeInUp');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        document.addEventListener('DOMContentLoaded', animateOnScroll);
+    </script>
+    
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

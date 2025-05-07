@@ -1,0 +1,41 @@
+{% extends 'accounts/emails/base_email.html' %}
+
+{% block email_title %}New Login to Your Account{% endblock %}
+
+{% block header_title %}Login Detected{% endblock %}
+
+{% block content_title %}New Login Detected{% endblock %}
+
+{% block content %}
+<p>Hello{% if user.first_name %} {{ user.first_name }}{% endif %},</p>
+
+<p>We detected a new login to your account on {% now "F j, Y" %} at {% now "H:i" %}.</p>
+{% endblock %}
+
+{% block additional_info %}
+<div class="alert alert-info">
+    <p><strong>Login Details:</strong></p>
+    <p>
+        <strong>Date & Time:</strong> {% now "F j, Y, H:i" %}<br>
+        <strong>IP Address:</strong> {{ ip_address }}<br>
+        <strong>Device:</strong> {{ device }}<br>
+        <strong>Browser:</strong> {{ browser }}<br>
+        <strong>Location:</strong> {{ location|default:"Unknown" }}
+    </p>
+</div>
+
+<div class="divider"></div>
+
+<p>If this was you, you can safely ignore this email.</p>
+{% endblock %}
+
+{% block closing %}
+<p><strong>Was this not you?</strong></p>
+<p>If you did not log in to your account at this time, please take immediate action:</p>
+<ol>
+    <li><a href="{{ site_url }}{% url 'accounts:password_reset' %}">Reset your password</a> immediately</li>
+    <li>Review your account for any suspicious activity</li>
+    <li>Contact our support team for assistance</li>
+</ol>
+<p>Security Team</p>
+{% endblock %}
