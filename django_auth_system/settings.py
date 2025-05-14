@@ -171,7 +171,7 @@ AUTHENTICATION_BACKENDS = [
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-CSRF_TRUSTED_ORIGINS = ['https://stakes-pn8o.onrender.com'
+CSRF_TRUSTED_ORIGINS = ['https://stakes-pn8o.onrender.com']
 
 # Login settings
 LOGIN_URL = 'accounts:login'
